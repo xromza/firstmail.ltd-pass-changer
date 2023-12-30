@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from time import sleep
 from colorama import Fore, Style
-from os import path
+from os import path, mkdir
 from Setup import install_packages
 from webbrowser import get
 from platform import system as plsys
@@ -93,7 +93,9 @@ def change_password(current_login: str, current_password: str, name_of_result_fi
     confirm_button = driver.find_element(By.XPATH, '//button[@type="submit" and contains(@class, "btn-primary")]')
     confirm_button.click()
     print(f"{Fore.YELLOW}Changing password...{Style.RESET_ALL}\n")
-    if not path.exists(name_of_result_file):
+    if not path.exists("Results/"):
+        mkdir("Results")
+    if not path.exists(f"Results/{name_of_result_file}"):
         with open(f"Results/{name_of_result_file}", "w") as f:
             f.write(f"{current_login}:{new_password}\n")
     else:
